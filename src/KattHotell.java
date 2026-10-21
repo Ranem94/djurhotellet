@@ -36,5 +36,14 @@ public class KattHotell {
             System.out.println(k.getNamn() + " Ras:" + k.getRas() + " Chip" + k.getChipnummer());
         }
     }
-}
+
+            public Katt hittaNamn(String namn){
+                for (Katt k : katter) {
+                    if (k.getNamn().equalsIgnoreCase(namn)) {
+                        return k;
+                    }
+                }
+                return null;
+            }
+                }
 

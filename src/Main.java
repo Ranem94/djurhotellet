@@ -1,32 +1,44 @@
-
+import java.util.Scanner;
 public class Main {
     public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
         KattHotell hotell = new KattHotell();
+        int val = 0;
 
-        //Testa tomt hotell (Etapp 5)
-        hotell.upprop();
+        while (val != 4) {
+            System.out.print("\n1. Checka in katt\n2. Lista alla incheckade\n3. Sök katt på namn\n4. Avsli" +
+                    "uta");
 
-        Katt k1 = new Katt("Missan", "12345", "Ragdoll");
-        Katt k2 = new Katt("Morris", "67890", "Bondkatt");
-        Katt k3 = new Katt("Missan Kopia", "12345", "Perser");
+            System.out.print("Välj: ");
+            val = scanner.nextInt();
+            scanner.nextInt();
 
-        hotell.checkaIn(k1);
-        hotell.checkaIn(k2);
-        hotell.checkaIn(k3); // nekas
+            if (val == 1) {
+                System.out.print("Namn: ");
+                String namn = scanner.nextLine();
+                System.out.print("Ras: ");
+                String ras = scanner.nextLine();
+                System.out.print("Chipnummer: ");
+                String chip = scanner.nextLine();
+                Katt katt = new Katt(namn, ras, chip);
+                hotell.checkaIn(katt);
 
-        System.out.println("\n--- Test hittaNamn ---");
-        Katt hittad = hotell.hittaNamn("maja");
-        if (hittad != null) {
-            System.out.println("Hittad: " + hittad.getNamn() + " " + hittad.getRas());
-        } else {
-            System.out.println("Katten hittades inte");
+            } else if (val == 2) {
+                hotell.upprop();
+
+            } else if (val == 3) {
+                System.out.print("Sök namn: ");
+                String sokNamn = scanner.nextLine();
+                Katt hittad = hotell.hittaNamn(sokNamn);
+
+                if (hittad != null) {
+                    System.out.print("Hittad: " + hittad.getNamn() + " Ras: " + hittad.getRas() + " Chip: " + hittad.getChipnummer());
+                } else {
+                    System.out.print("Katten hittades inte");
+                }
+            }
         }
-        Katt ejHittad = hotell.hittaNamn("Bosse");
-        if (ejHittad == null) {
-            System.out.println("Bosse finns inte - returnerar null som väntat");
-        }
-
-        hotell.upprop();
-        System.out.println("Antal:" + hotell.getAntalKatter());
+        System.out.print("Programmet avslutas.");
+        scanner.close();
     }
 }
